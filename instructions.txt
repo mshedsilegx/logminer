@@ -1,0 +1,1 @@
+implement  in golang a log parser that would search a regexp in a log file, and return a status of true if found or false if not. the previous result and line count should be stored in a state file, so log parsing would be incremental over time. command line argument would be: logfile name, regexp of string to search, and state file. Name of the program is: logminer
