@@ -10,6 +10,8 @@ import (
 	"regexp"
 )
 
+var version string
+
 type State struct {
 	LastLine int    `json:"last_line"`
 	Found    bool   `json:"found"`
@@ -95,8 +97,15 @@ func main() {
 	logFile := flag.String("log", "", "Path to the log file")
 	regexStr := flag.String("regex", "", "Regular expression to search")
 	stateFile := flag.String("state", "logminer.state", "Path to the state file")
+	versionFlag := flag.Bool("version", false, "Display version information")
 
 	flag.Parse()
+
+	// Version
+	if *versionFlag {
+		fmt.Printf("Log Incremental Miner - Version: %s\n", version)
+		os.Exit(0)
+	}
 
 	if *logFile == "" || *regexStr == "" {
 		fmt.Println("Usage: logminer -log <log_file> -regex <regex_string> [-state <state_file>]")
