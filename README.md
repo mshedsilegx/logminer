@@ -17,7 +17,7 @@ This is particularly useful for monitoring log files for specific events without
 The tool is run from the command line with the following arguments:
 
 ```sh
-go run . -log <path_to_log_file> -regex <regex_pattern> [-state <path_to_state_file>]
+logminer -log <path_to_log_file> -regex <regex_pattern> [-state <path_to_state_file>]
 ```
 
 ### Arguments:
@@ -40,7 +40,7 @@ echo "DEBUG: Connecting to database." >> app.log
 echo "ERROR: Database connection failed." >> app.log
 
 # Run the logminer
-go run . -log app.log -regex "ERROR"
+logminer -log app.log -regex "ERROR"
 ```
 
 **Output:**
@@ -55,7 +55,7 @@ If you run the same command again without any changes to `app.log`, it will star
 
 ```sh
 # Run the logminer again
-go run . -log app.log -regex "ERROR"
+logminer -log app.log -regex "ERROR"
 ```
 
 **Output:**
@@ -70,7 +70,7 @@ Now, let's add a new error to the log file.
 echo "ERROR: Authentication service timed out." >> app.log
 
 # Run the logminer one more time
-go run . -log app.log -regex "ERROR"
+logminer -log app.log -regex "ERROR"
 ```
 
 **Output:**
@@ -94,7 +94,7 @@ Imagine your log lines are formatted like `[SERVICE_NAME] [LOG_LEVEL]: Message`.
 # [auth-service] DEBUG: User lookup
 # [payment-service] ERROR: Card declined
 
-go run . -log app.log -regex "\[auth-service\] ERROR"
+logminer -log app.log -regex "\[auth-service\] ERROR"
 ```
 *Note: The `[` and `]` are escaped with backslashes because they are special characters in regular expressions.*
 
@@ -108,6 +108,6 @@ Suppose you want to find any log line that contains an HTTP status code in the 4
 # Request succeeded with status code 200
 # Request failed with status code 401
 
-go run . -log app.log -regex "status code 4[0-9]{2}"
+logminer -log app.log -regex "status code 4[0-9]{2}"
 ```
 This regex looks for the literal string "status code 4" followed by any two digits from 0-9.
