@@ -17,7 +17,7 @@ This is particularly useful for monitoring log files for specific events without
 The tool is run from the command line with the following arguments:
 
 ```sh
-go run . -log <path_to_log_file> -regex <regex_pattern> [-state <path_to_state_file>]
+logminer -log <path_to_log_file> -regex <regex_pattern> [-state <path_to_state_file>]
 ```
 
 ### Arguments:
@@ -40,7 +40,7 @@ echo "DEBUG: Connecting to database." >> app.log
 echo "ERROR: Database connection failed." >> app.log
 
 # Run the logminer
-go run . -log app.log -regex "ERROR"
+logminer -log app.log -regex "ERROR"
 ```
 
 **Output:**
@@ -55,7 +55,7 @@ If you run the same command again without any changes to `app.log`, it will star
 
 ```sh
 # Run the logminer again
-go run . -log app.log -regex "ERROR"
+logminer -log app.log -regex "ERROR"
 ```
 
 **Output:**
@@ -70,7 +70,7 @@ Now, let's add a new error to the log file.
 echo "ERROR: Authentication service timed out." >> app.log
 
 # Run the logminer one more time
-go run . -log app.log -regex "ERROR"
+logminer -log app.log -regex "ERROR"
 ```
 
 **Output:**
