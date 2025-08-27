@@ -78,36 +78,3 @@ logminer -log app.log -regex "ERROR"
 true
 ```
 This time, it outputs `true` again because it found the new "ERROR" line that was added after its last run.
-
-### Advanced Regexp Examples
-
-The `-regex` flag accepts any valid Go regular expression. This allows for more powerful and specific searches.
-
-**Example 1: Searching for errors from a specific service**
-
-Imagine your log lines are formatted like `[SERVICE_NAME] [LOG_LEVEL]: Message`. You only want to find errors from `auth-service`.
-
-```sh
-# Sample log lines
-# [auth-service] ERROR: Invalid credentials
-# [payment-service] INFO: Payment processed
-# [auth-service] DEBUG: User lookup
-# [payment-service] ERROR: Card declined
-
-logminer -log app.log -regex "\[auth-service\] ERROR"
-```
-*Note: The `[` and `]` are escaped with backslashes because they are special characters in regular expressions.*
-
-**Example 2: Searching for a pattern with wildcards**
-
-Suppose you want to find any log line that contains an HTTP status code in the 4xx range (e.g., 400, 401, 404).
-
-```sh
-# Sample log lines
-# Request failed with status code 404
-# Request succeeded with status code 200
-# Request failed with status code 401
-
-logminer -log app.log -regex "status code 4[0-9]{2}"
-```
-This regex looks for the literal string "status code 4" followed by any two digits from 0-9.
