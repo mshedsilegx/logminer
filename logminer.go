@@ -41,7 +41,11 @@ func (lm *LogMiner) Search() (bool, error) {
 	if err != nil {
 		return false, fmt.Errorf("error opening log file: %w", err)
 	}
-	defer f.Close()
+	defer func() {
+		if err := f.Close(); err != nil {
+			fmt.Printf("error closing file: %v\n", err)
+		}
+	}()
 
 	if _, err := f.Seek(lm.state.Offset, io.SeekStart); err != nil {
 		return false, fmt.Errorf("error seeking log file: %w", err)
