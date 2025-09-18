@@ -20,7 +20,11 @@ func loadState(stateFile string) (State, error) {
 		if err != nil {
 			return state, fmt.Errorf("error opening state file: %w", err)
 		}
-		defer f.Close()
+		defer func() {
+			if err := f.Close(); err != nil {
+				fmt.Printf("error closing file: %v\n", err)
+			}
+		}()
 		decoder := json.NewDecoder(f)
 		err = decoder.Decode(&state)
 		if err != nil {
@@ -36,7 +40,11 @@ func saveState(stateFile string, state State) error {
 	if err != nil {
 		return fmt.Errorf("error creating state file: %w", err)
 	}
-	defer f.Close()
+	defer func() {
+		if err := f.Close(); err != nil {
+			fmt.Printf("error closing file: %v\n", err)
+		}
+	}()
 
 	encoder := json.NewEncoder(f)
 	err = encoder.Encode(state)
